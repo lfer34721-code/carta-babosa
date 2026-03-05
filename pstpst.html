@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi amor ❤️</title>
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fecfef);
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+.carta{
+    background:white;
+    width:320px;
+    height:200px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition: height 1s ease;
+}
+
+.carta.abierta{
+    height:400px;
+}
+
+#mensaje{
+    padding:20px;
+    text-align:center;
+    font-size:16px;
+    line-height:1.6;
+    opacity:0;
+}
+
+button{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff4d6d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.heart{
+    position:absolute;
+    bottom:-50px;
+    font-size:20px;
+    animation:flotar 6s linear infinite;
+}
+
+@keyframes flotar{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100vh); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="carta" id="carta">
+<h1>Para mi amor ❤️</h1>
+<div id="mensaje"></div>
+<button onclick="document.getElementById('musica').play()">💗 Reproducir canción</button>
+<audio id="musica">
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<script>
+// función para abrir carta y mostrar mensaje con efecto "tecleando"
+const carta = document.getElementById('carta');
+const mensaje = document.getElementById('mensaje');
+const texto = "Solo quería recordarte q eres muy especial. ʕ•ᴥ•ʔ♥ʕ•ᴥ•ʔ\nDesde que llegaste a mi vida todo es más bonito.\nBáñate mugrosa jeje (❤ᆺ❤)";
+
+carta.addEventListener('click',()=>{
+    carta.classList.add('abierta');
+    mensaje.style.opacity = 1;
+    let i=0;
+    function escribir(){
+        if(i<texto.length){
+            if(texto[i]==="\n"){ mensaje.innerHTML+="<br>"; }
+            else{ mensaje.innerHTML+=texto[i]; }
+            i++;
+            setTimeout(escribir,50);
+        }
+    }
+    escribir();
+});
+
+// función para crear corazones flotando
+function crearCorazon(){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+10)+"px";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{ heart.remove(); },6000);
+}
+
+setInterval(crearCorazon,400);
+</script>
+
+</body>
+</html>
